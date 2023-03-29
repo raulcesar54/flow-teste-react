@@ -6,7 +6,7 @@ export const Form = ({ data, isConnectable, ...an }: any) => {
   const { data: nodes } = useBoard();
   const [getValues, setGetValues] = useState([]);
   useEffect(() => {
-    const getValues = Object.values(data.values);
+    const getValues: any = Object.values(data.values);
 
     setGetValues(getValues);
   }, [nodes, data]);

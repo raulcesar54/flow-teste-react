@@ -26,7 +26,7 @@ export default function Home() {
     [setEdges]
   );
   function onRemoveEdge(data: any) {
-    data.map((item) => {
+    data.map((item: any) => {
       removeEdges(item.source, item.target);
     });
   }

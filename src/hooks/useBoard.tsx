@@ -2,13 +2,14 @@ import { createContext, useContext } from "react";
 import { v4 } from "uuid";
 import { useNodesState } from "reactflow";
 interface nodeType {
-  nodeType: "form" | "input" | "button";
+  nodeType: string;
   label: string;
 }
 interface contextBoardProps {
   data: any;
   addNode: (nodeProps: nodeType) => void;
-  removeEdges: (nodeProps: any) => void;
+  removeEdges: (nodeProps: any, teest: any) => void;
+  updateNode: (nodeProps: any, teest: any, value: any) => void;
   connectedNode: (data: any) => void;
   onNodesChange: any;
 }
@@ -65,7 +66,7 @@ export const ProviderBoard = ({ children }: { children: JSX.Element }) => {
           delete item.data.targetId;
         }
         if (item.id === targetId) {
-           item.data.values[sourceId] = '';
+          item.data.values[sourceId] = "";
         }
         return item;
       })

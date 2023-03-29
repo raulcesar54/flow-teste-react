@@ -6,7 +6,7 @@ function TextUpdaterNode({ data, isConnectable, id, ...t }: any) {
   const [inputValue, setInputValue] = useState("");
   const { updateNode } = useBoard();
   const onChange = (evt: any) => {
-    updateNode(data.targetId, id, event?.target.value);
+    updateNode(data.targetId, id, String(evt?.target.value));
   };
   return (
     <div
