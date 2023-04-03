@@ -37,6 +37,7 @@ export const BackMenu = ({ data, id }: any) => {
       </label>
       <h1 className="max-w-[100px] text-sm mt-2">Voltar para menu anterior</h1>
       <HandleStyled
+        index={id}
         type="target"
         position={Position.Left}
         id="targetBackPreviousMenu"
@@ -44,7 +45,7 @@ export const BackMenu = ({ data, id }: any) => {
           updateNode(event.target, id, inputValue);
         }}
       />
-{/* 
+      {/* 
       <HandleStyled
         type="source"
         position={Position.Right}

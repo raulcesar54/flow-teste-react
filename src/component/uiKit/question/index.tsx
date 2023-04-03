@@ -6,7 +6,7 @@ import { Button } from "../button";
 import { HandleStyled } from "../handleStyle";
 
 export const Question = ({ data, id }: any) => {
-  const [inputs, setInputs] = useState([]);
+  const [inputs, setInputs] = useState(['']);
   const [inputValue, setInputValue] = useState("");
   const { updateNode } = useBoard();
   const onChange = (evt: any) => {
