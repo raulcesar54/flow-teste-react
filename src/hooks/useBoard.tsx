@@ -1,6 +1,8 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useId } from "react";
+import { useEdgesState, useNodesState } from "reactflow";
 import { v4 } from "uuid";
-import { useNodesState } from "reactflow";
+import mock from "../pages/mock.json";
+
 interface nodeType {
   nodeType: string;
   label: string;
@@ -11,12 +13,58 @@ interface contextBoardProps {
   removeEdges: (nodeProps: any, teest: any) => void;
   updateNode: (nodeProps: any, teest: any, value: any) => void;
   connectedNode: (data: any) => void;
+  setNodes: (data: any) => void;
   onNodesChange: any;
 }
 const ContextBoard = createContext({ data: [] } as contextBoardProps);
 
 export const ProviderBoard = ({ children }: { children: JSX.Element }) => {
-  const [nodes, setNodes, onNodesChange] = useNodesState([]);
+  const id = useId();
+  const [edges, setEdges, onEdgesChange] = useEdgesState(
+    mock.map((item) =>
+      item.parent
+        ? {
+            id: item.id,
+            target: item.id,
+            sourceHandle: `source_${item.id}`,
+            targetHandle: `target_${item.id}`,
+            source: item.parent.id,
+          }
+        : {}
+    )
+  );
+  const [nodes, setNodes, onNodesChange] = useNodesState(
+    mock.map((item, index) => {
+      // item?.parent?.id &&
+      //   setEdges((e) =>
+      //     addEdge({ source: item.id, target: item.parent.id } as any, e)
+      //   );
+      const data = {
+        id: item.id,
+        type: item.name.replace(" ", ""),
+        position: item.position
+          ? item.position
+          : {
+              x: 140 * index,
+              y: 100 * index,
+            },
+        data: {
+          description: item.description,
+          published: item.published,
+          selected: false,
+          values: [],
+        },
+        width: 243,
+        height: 144,
+      };
+      // if (item?.parent?.id) {
+      //   setEdges((eds) => {
+      //     return addEdge(data, item.parent.id);
+      //   });
+      // }
+      return data;
+    })
+  );
   function updateNode(targetId: string, id: string, value: string) {
     setNodes((nodes) =>
       nodes.map((item) => {
@@ -81,6 +129,10 @@ export const ProviderBoard = ({ children }: { children: JSX.Element }) => {
         connectedNode,
         updateNode,
         removeEdges,
+        setNodes,
+        edges,
+        setEdges,
+        onEdgesChange,
       }}
     >
       {children}

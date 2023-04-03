@@ -33,8 +33,6 @@ function TextUpdaterNode({ data, isConnectable, id, ...t }: any) {
         position={Position.Right}
         id="b"
         onConnect={(event) => {
-          console.log(event);
-          console.log(data.targetId, id, inputValue);
           updateNode(event.target, id, inputValue);
         }}
         isConnectable={isConnectable}
