@@ -30,6 +30,8 @@ export const Expense = ({ data, id }: any) => {
       </label>
       <h1 className="max-w-[300px] text-sm mt-2">indicador de despesas</h1>
       <HandleStyled
+        index={id}
+
         type="target"
         position={Position.Left}
         id="target"
@@ -39,6 +41,8 @@ export const Expense = ({ data, id }: any) => {
       />
 
       <HandleStyled
+        index={id}
+
         type="source"
         position={Position.Right}
         id="source"

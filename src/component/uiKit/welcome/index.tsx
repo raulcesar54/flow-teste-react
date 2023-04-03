@@ -25,6 +25,8 @@ export const Welcome = ({ data, id }: any) => {
     
       <HandleStyled
         id={`source_${id}`}
+        index={id}
+
         type="source"
         position={Position.Right}
         onConnect={(event) => {

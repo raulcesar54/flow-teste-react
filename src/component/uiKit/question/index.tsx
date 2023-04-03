@@ -6,7 +6,7 @@ import { Button } from "../button";
 import { HandleStyled } from "../handleStyle";
 
 export const Question = ({ data, id }: any) => {
-  const [inputs, setInputs] = useState(['']);
+  const [inputs, setInputs] = useState([""]);
   const [inputValue, setInputValue] = useState("");
   const { updateNode } = useBoard();
   const onChange = (evt: any) => {
@@ -54,8 +54,7 @@ export const Question = ({ data, id }: any) => {
             onConnect={(event) => {
               updateNode(event.target, id, inputValue);
             }}
-          >
-          </HandleStyled>
+          ></HandleStyled>
         </>
       ))}
       <div className="flex flex-row gap-2">
@@ -72,6 +71,7 @@ export const Question = ({ data, id }: any) => {
         </div>
       </div>
       <HandleStyled
+        index={id}
         type="target"
         position={Position.Left}
         id="target"

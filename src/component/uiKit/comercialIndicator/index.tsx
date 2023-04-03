@@ -30,6 +30,7 @@ export const ComercialIndicator = ({ data, id }: any) => {
       </label>
       <h1 className="max-w-[300px] text-sm mt-2">Indicador comercial</h1>
       <HandleStyled
+        index={id}
         type="target"
         position={Position.Left}
         id="target"
@@ -40,6 +41,7 @@ export const ComercialIndicator = ({ data, id }: any) => {
       />
 
       <HandleStyled
+        index={id}
         type="source"
         position={Position.Right}
         id="source"

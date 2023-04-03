@@ -14,14 +14,18 @@ interface contextBoardProps {
   updateNode: (nodeProps: any, teest: any, value: any) => void;
   connectedNode: (data: any) => void;
   setNodes: (data: any) => void;
+  setEdges: any
+  onEdgesChange: any
+  edges: any;
   onNodesChange: any;
 }
 const ContextBoard = createContext({ data: [] } as contextBoardProps);
 
 export const ProviderBoard = ({ children }: { children: JSX.Element }) => {
+  const data: any = mock;
   const id = useId();
   const [edges, setEdges, onEdgesChange] = useEdgesState(
-    mock.map((item) =>
+    data.map((item: any) =>
       item.parent
         ? {
             id: item.id,
@@ -80,8 +84,8 @@ export const ProviderBoard = ({ children }: { children: JSX.Element }) => {
     );
   }
   function connectedNode(data: any) {
-    setNodes((nodes) =>
-      nodes.map((item) => {
+    setNodes((nodes: any) =>
+      nodes.map((item: any) => {
         if (item.id === data.source) {
           item.data = {
             ...item.data,
@@ -94,7 +98,7 @@ export const ProviderBoard = ({ children }: { children: JSX.Element }) => {
     );
   }
   function addNode({ nodeType, label }: nodeType) {
-    setNodes((e) => [
+    setNodes((e: any) => [
       ...e,
       {
         id: v4(),
@@ -106,7 +110,7 @@ export const ProviderBoard = ({ children }: { children: JSX.Element }) => {
   }
   function removeEdges(sourceId: string, targetId: string) {
     setNodes((nodes) =>
-      nodes.map((item) => {
+      nodes.map((item: any) => {
         if (item.id === sourceId) {
           item.data = {
             selected: false,

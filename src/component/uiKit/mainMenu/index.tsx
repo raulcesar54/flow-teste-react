@@ -28,6 +28,8 @@ export const MainMenu = ({ data, id }: any) => {
         </div>
       </label>
       <HandleStyled
+        index={id}
+
         type="target"
         position={Position.Left}
         id={`target_${id}`}
@@ -37,6 +39,8 @@ export const MainMenu = ({ data, id }: any) => {
       />
 
       <HandleStyled
+        index={id}
+
         id={`source_${id}`}
         type="source"
         position={Position.Right}

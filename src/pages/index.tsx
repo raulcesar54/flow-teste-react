@@ -8,7 +8,7 @@ import { Question } from "@/component/uiKit/question";
 import { Welcome } from "@/component/uiKit/welcome";
 import { useBoard } from "@/hooks/useBoard";
 import { useCallback, useRef, useState } from "react";
-import ReactFlow, { addEdge, Background, Controls } from "reactflow";
+import ReactFlow, { addEdge, Background, BackgroundVariant, Controls } from "reactflow";
 import "reactflow/dist/style.css";
 import { v4 as uuid } from "uuid";
 
@@ -44,7 +44,7 @@ export default function Home() {
   }, []);
 
   const onDrop = useCallback(
-    (event) => {
+    (event: any) => {
       event.preventDefault();
       const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
       const type = event.dataTransfer.getData("application/reactflow");
@@ -72,7 +72,7 @@ export default function Home() {
   const onConnect = useCallback(
     (params: any) => {
       connectedNode(params);
-      setEdges((eds) => addEdge(params, eds));
+      setEdges((eds: any) => addEdge(params, eds));
     },
     [setEdges]
   );
@@ -104,7 +104,7 @@ export default function Home() {
         onDrop={onDrop}
         // connectionLineComponent={ConenctionLine}
       >
-        <Background variant="dots" />
+        <Background variant={BackgroundVariant.Dots} />
       </ReactFlow>
       {/* </div>
       </ReactFlowProvider> */}
