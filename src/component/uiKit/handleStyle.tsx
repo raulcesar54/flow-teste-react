@@ -2,7 +2,7 @@ import { Handle } from "reactflow";
 import styled, { css } from "styled-components";
 
 interface HandleProps {
-  index: number;
+  isVectorItems?: boolean;
 }
 export const HandleStyled = styled(Handle)<HandleProps>`
   padding: 4px;
@@ -12,9 +12,10 @@ export const HandleStyled = styled(Handle)<HandleProps>`
   border: 2px solid black;
   border-radius: 100px;
   /* width: 100px; */
-  ${({ index }) =>
-    index &&
+  ${({ isVectorItems }) =>
+    isVectorItems &&
     css`
-      top: ${index * 40 + 70}px;
+      top: -20px;
+      right: -23px;
     `}
 `;

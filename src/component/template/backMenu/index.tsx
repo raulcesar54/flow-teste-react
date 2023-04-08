@@ -1,10 +1,17 @@
 import { useBoard } from "@/hooks/useBoard";
 import { useState } from "react";
 import { Handle, Position } from "reactflow";
-import { HandleStyled } from "../handleStyle";
-import { FiHome, FiShoppingBag } from "react-icons/fi";
+import {
+  FiChevronLeft,
+  FiChevronRight,
+  FiHome,
+  FiShoppingBag,
+  FiShoppingCart,
+  FiShuffle,
+} from "react-icons/fi";
+import { HandleStyled } from "../../uiKit/handleStyle";
 
-export const ComercialIndicator = ({ data, id }: any) => {
+export const BackMenu = ({ data, id }: any) => {
   const [inputValue, setInputValue] = useState("");
   const { updateNode } = useBoard();
   const onChange = (evt: any) => {
@@ -21,34 +28,21 @@ export const ComercialIndicator = ({ data, id }: any) => {
         className="flex items-center flex-row text-lg font-bold gap-2 "
       >
         <div className="p-3 border-2 border-slate-200 rounded-lg">
-          <FiShoppingBag size={16} />
+          <FiChevronLeft size={16} />
         </div>
         <div className="flex flex-col ">
-          Inidicador comercial
+          Menu Anterior
           <small className="mt-[-4px] text-sm font-light">menu de ação</small>
         </div>
       </label>
-      <h1 className="max-w-[300px] text-sm mt-2">Indicador comercial</h1>
+      <h1 className="max-w-[100px] text-sm mt-2">Voltar para menu anterior</h1>
       <HandleStyled
-        index={id}
         type="target"
         position={Position.Left}
-        id="target"
+        id="targetBackPreviousMenu"
         onConnect={(event) => {
           updateNode(event.target, id, inputValue);
         }}
-        // isConnectable={isConnectable}
-      />
-
-      <HandleStyled
-        index={id}
-        type="source"
-        position={Position.Right}
-        id="source"
-        onConnect={(event) => {
-          updateNode(event.target, id, inputValue);
-        }}
-        // isConnectable={isConnectable}
       />
     </div>
   );

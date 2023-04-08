@@ -1,41 +1,35 @@
+import { Action } from "@/component/template/action";
+import { BackMenu } from "@/component/template/backMenu";
+import { Document } from "@/component/template/document";
+import { MainMenu } from "@/component/template/mainMenu";
+import { Text } from "@/component/template/text";
 import { Toolbox } from "@/component/template/toolbox";
-import { BackMenu } from "@/component/uiKit/backMenu";
-import { ComercialIndicator } from "@/component/uiKit/comercialIndicator";
-import { Detail } from "@/component/uiKit/detail";
-import { Expense } from "@/component/uiKit/expense";
-import { MainMenu } from "@/component/uiKit/mainMenu";
-import { Question } from "@/component/uiKit/question";
-import { Welcome } from "@/component/uiKit/welcome";
+import { Welcome } from "@/component/template/welcome";
 import { useBoard } from "@/hooks/useBoard";
 import { useCallback, useRef, useState } from "react";
-import ReactFlow, { addEdge, Background, BackgroundVariant, Controls } from "reactflow";
+import ReactFlow, {
+  Background,
+  BackgroundVariant,
+  ReactFlowProvider,
+} from "reactflow";
 import "reactflow/dist/style.css";
 import { v4 as uuid } from "uuid";
 
 const nodeTypes = {
   BoasVindas: Welcome,
   MenuPrincipal: MainMenu,
-  IndComercial: ComercialIndicator,
-  Despesa: Expense,
-  Pergunta: Question,
   MenuAnterior: BackMenu,
-  Detalhar: Detail,
+  Documento: Document,
+  Acao: Action,
+  Texto: Text,
 };
 
 export default function Home() {
   const reactFlowWrapper: any = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState<any>(null);
 
-  const {
-    data,
-    onNodesChange,
-    connectedNode,
-    removeEdges,
-    onEdgesChange,
-    setNodes,
-    setEdges,
-    edges,
-  } = useBoard();
+  const { data, onNodesChange, removeEdges, onEdgesChange, setNodes, edges } =
+    useBoard();
   const panOnDrag = [1, 2];
 
   const onDragOver = useCallback((event: any) => {
@@ -62,19 +56,10 @@ export default function Home() {
         position,
         data: { label: `${type} node` },
       };
-      console.log(newNode);
 
       setNodes((nds: any) => nds.concat(newNode));
     },
     [reactFlowInstance]
-  );
-
-  const onConnect = useCallback(
-    (params: any) => {
-      connectedNode(params);
-      setEdges((eds: any) => addEdge(params, eds));
-    },
-    [setEdges]
   );
   function onRemoveEdge(data: any) {
     data.map((item: any) => {
@@ -84,30 +69,24 @@ export default function Home() {
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <Toolbox />
-      {/* <ReactFlowProvider>
-       */}
-      <ReactFlow
-        nodes={data}
-        edges={edges}
-        preventScrolling
-        onInit={setReactFlowInstance}
-        ref={reactFlowWrapper}
-        // maxZoom={1}
-        // minZoom={1}
-        panOnDrag={panOnDrag}
-        onEdgesDelete={onRemoveEdge}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        nodeTypes={nodeTypes}
-        onConnect={onConnect}
-        onDragOver={onDragOver}
-        onDrop={onDrop}
-        // connectionLineComponent={ConenctionLine}
-      >
-        <Background variant={BackgroundVariant.Dots} />
-      </ReactFlow>
-      {/* </div>
-      </ReactFlowProvider> */}
+      <ReactFlowProvider>
+        <ReactFlow
+          nodes={data}
+          edges={edges}
+          preventScrolling
+          onInit={setReactFlowInstance}
+          ref={reactFlowWrapper}
+          panOnDrag={panOnDrag}
+          onEdgesDelete={onRemoveEdge}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          nodeTypes={nodeTypes}
+          onDragOver={onDragOver}
+          onDrop={onDrop}
+        >
+          <Background variant={BackgroundVariant.Dots} />
+        </ReactFlow>
+      </ReactFlowProvider>
     </div>
   );
 }
